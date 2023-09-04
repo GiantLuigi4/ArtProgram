@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using ArtProgram.display;
 using ArtProgram.display.shader;
 using ArtProgram.scripting.lib;
+using ArtProgram.scripting.obj;
 using OpenGL;
 
 namespace ArtProgram.layer {
@@ -27,27 +28,20 @@ namespace ArtProgram.layer {
                 BaseShader sdr = RenderHelper.INSTANCE.MERGE_FRAG;
                 sdr.Bind();
 
+                Gl.Uniform2(sdr.GetUniform("Resolution"), (float) interlaced.Width, interlaced.Height);
+                Gl.Uniform1(sdr.GetUniform("Alpha"), 1f);
+
                 sdr.BindOutput(interlaced, "Output", 0);
 
-                Gl.ActiveTexture(TextureUnit.Texture1);
+                Gl.ActiveTexture(TextureUnit.Texture0 + 1);
                 Gl.BindTexture(TextureTarget.Texture2d, texture.tex);
                 Gl.Uniform1(sdr.GetUniform("Tex0"), 1);
 
-                Gl.ActiveTexture(TextureUnit.Texture2);
+                Gl.ActiveTexture(TextureUnit.Texture0 + 2);
                 Gl.BindTexture(TextureTarget.Texture2d, interlace.tex);
                 Gl.Uniform1(sdr.GetUniform("Tex1"), 2);
 
-                Gl.Uniform2(sdr.GetUniform("Resolution"), (float) interlaced.Width, interlaced.Height);
-
-                RenderHelper helper = RenderHelper.INSTANCE;
-                helper.BeginDrawing(PrimitiveType.Triangles);
-                helper.Vertex(-1, -1, 0);
-                helper.Vertex(-1, 1, 0);
-                helper.Vertex(1, 1, 0);
-                helper.Vertex(-1, -1, 0);
-                helper.Vertex(1, -1, 0);
-                helper.Vertex(1, 1, 0);
-                helper.FinishDraw();
+                GlLib.INSTANCE.blit(new LuaShader(sdr), new LuaTexture(interlaced));
 
                 Gl.UseProgram(0);
                 
@@ -58,30 +52,27 @@ namespace ArtProgram.layer {
         }
 
         public void MergeInterlace() {
+            interlaced.BindWrite();
+            Gl.ClearColor(0, 0, 0, 0f);
+            Gl.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
             BaseShader sdr = RenderHelper.INSTANCE.MERGE_SHADER;
             sdr.Bind();
 
+            Gl.Uniform2(sdr.GetUniform("Resolution"), (float) interlaced.Width, interlaced.Height);
+            Gl.Uniform1(sdr.GetUniform("Alpha"), 1f);
+
             sdr.BindOutput(interlaced, "Output", 0);
 
-            Gl.ActiveTexture(TextureUnit.Texture1);
+            Gl.ActiveTexture(TextureUnit.Texture0 + 1);
             Gl.BindTexture(TextureTarget.Texture2d, texture.tex);
             Gl.Uniform1(sdr.GetUniform("Tex0"), 1);
 
-            Gl.ActiveTexture(TextureUnit.Texture2);
+            Gl.ActiveTexture(TextureUnit.Texture0 + 2);
             Gl.BindTexture(TextureTarget.Texture2d, interlace.tex);
             Gl.Uniform1(sdr.GetUniform("Tex1"), 2);
 
-            Gl.Uniform2(sdr.GetUniform("Resolution"), (float) interlaced.Width, interlaced.Height);
-
-            RenderHelper helper = RenderHelper.INSTANCE;
-            helper.BeginDrawing(PrimitiveType.Triangles);
-            helper.Vertex(-1, -1, 0);
-            helper.Vertex(-1, 1, 0);
-            helper.Vertex(1, 1, 0);
-            helper.Vertex(-1, -1, 0);
-            helper.Vertex(1, -1, 0);
-            helper.Vertex(1, 1, 0);
-            helper.FinishDraw();
+            GlLib.INSTANCE.blit(new LuaShader(sdr), new LuaTexture(interlaced));
 
             Gl.UseProgram(0);
 

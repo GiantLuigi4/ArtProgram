@@ -5,7 +5,7 @@ precision highp sampler2D;
 
 #ifdef COMPUTE
     layout (local_size_x = 32, local_size_y = 32, local_size_z = 1) in;
-    layout(rgba16, binding = 0) uniform image2D Output;
+    layout(rgba16, binding = 0) uniform writeonly image2D Output;
     layout(binding = 1) uniform sampler2D Tex0;
     layout(binding = 2) uniform sampler2D Tex1;
 #else
@@ -61,11 +61,15 @@ void main() {
 
     vec4 bottom;
     if (Resolution == textureSize(Tex0, 0)) { bottom = texelFetch(Tex0, coord, 0); }
-    else { bottom = texture2D(Tex0, coord.xy / Resolution); }
+    else { bottom = texture2D(Tex0, coord / Resolution); }
     vec4 top;
     if (Resolution == textureSize(Tex1, 0)) { top = texelFetch(Tex1, coord, 0); }
-    else { top = texture2D(Tex1, coord.xy / Resolution); }
+    else { top = texture2D(Tex1, coord / Resolution); }
     top.a *= Alpha;
 
-    color = blend(bottom, top);
+    #ifdef COMPUTE
+        imageStore(Output, coord, blend(bottom, top));
+    #else
+        color = blend(bottom, top);
+    #endif
 }

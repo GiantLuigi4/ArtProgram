@@ -29,7 +29,7 @@ namespace ArtProgram.scripting.obj {
         public void setUniformF(string name, float v0, float v1) {
             Gl.Uniform2(actual.GetUniform(name), v0, v1);
         }
-        
+
         [MoonSharpUserDataMetamethod("setUniformF")]
         public void setUniformF(string name, float v0, float v1, float v2) {
             Gl.Uniform3(actual.GetUniform(name), v0, v1, v2);

@@ -94,7 +94,6 @@ namespace ArtProgram.display.shader {
 
         public virtual void BindOutput(Texture texture, string uniform, int loc) {
             texture.BindWrite();
-            // Gl.Uniform1i(GetUniform(uniform), loc, texture);
         }
 
         public static void DisableAttribs() {

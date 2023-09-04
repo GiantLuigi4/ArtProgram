@@ -11,8 +11,8 @@ function blit(lower, upper, dst, alpha)
 
     -- bind textures
     dst.bindWrite(sdr, "Output", 0)
-    lower.bind(sdr, "Tex0", 0)
-    upper.bind(sdr, "Tex1", 1)
+    lower.bind(sdr, "Tex0", 1)
+    upper.bind(sdr, "Tex1", 2)
 
     -- draw to destination texture
     Gl.blit(sdr, dst)

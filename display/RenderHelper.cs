@@ -11,13 +11,13 @@ namespace ArtProgram.display {
         public BaseShader UI_SHADER;
         public FragmentShader BLIT_FRAG;
         public FragmentShader MERGE_FRAG;
-        public FragmentShader MERGE_SHADER;
+        public BaseShader MERGE_SHADER;
 
         private RenderHelper() {
             UI_SHADER = new FragmentShader(ResourceManager.ReadInternalStr("shaders/ui.vsh"), ResourceManager.ReadInternalStr("shaders/ui.fsh"));
             BLIT_FRAG = (FragmentShader) ShaderManager.GetShader("util/blit", false);
             MERGE_FRAG = (FragmentShader) ShaderManager.GetShader("layer/merge", false);
-            MERGE_SHADER = (FragmentShader) ShaderManager.GetShader("layer/merge", true);
+            MERGE_SHADER = (BaseShader) ShaderManager.GetShader("layer/merge", true);
             UI_SHADER.DiscoverUniform("Texture");
             UI_SHADER.DiscoverUniform("Resolution");
             UI_SHADER.DiscoverUniform("CanvasSize");

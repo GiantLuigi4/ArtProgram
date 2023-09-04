@@ -34,7 +34,7 @@ namespace ArtProgram.display {
             Gl.TexParameterI(TextureTarget.Texture2d, TextureParameterName.TextureMagFilter, new int[]{ Gl.LINEAR });
             Gl.TexParameterI(TextureTarget.Texture2d, TextureParameterName.TextureMinFilter, new int[]{ Gl.LINEAR });
 
-            Gl.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba, Width, Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, 0);
+            Gl.TexImage2D(TextureTarget.Texture2d, 0, InternalFormat.Rgba16, Width, Height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, 0);
 
             if (EnableFbo) {
                 rbo = Gl.GenRenderbuffer();

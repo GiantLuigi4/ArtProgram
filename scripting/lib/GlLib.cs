@@ -12,18 +12,8 @@ namespace ArtProgram.scripting.lib {
         public static bool AllowCompute = false;
         public static double width, height;
 
-        public void begin(string mode) {
-            switch (mode) {
-                case "polygons":
-                    RenderHelper.INSTANCE.BeginDrawing(OpenGL.PrimitiveType.Polygon);
-                    break;
-                case "quads":
-                    RenderHelper.INSTANCE.BeginDrawing(OpenGL.PrimitiveType.Quads);
-                    break;
-                case "triangles":
-                    RenderHelper.INSTANCE.BeginDrawing(OpenGL.PrimitiveType.Triangles);
-                    break;
-            }
+        public void begin() {
+            RenderHelper.INSTANCE.BeginDrawing(OpenGL.PrimitiveType.Triangles);
         }
 
         public void finish() {

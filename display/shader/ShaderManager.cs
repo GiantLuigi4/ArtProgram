@@ -14,6 +14,7 @@ namespace ArtProgram.display.shader {
         }
 
         private static Dictionary<string, FragmentShader> FRAGMENTS = new();
+        private static Dictionary<string, ComputeShader> COMPUTES = new();
         
         public static BaseShader GetShader(string name, bool compute) {
             if (!FRAGMENTS.ContainsKey(name)) {
@@ -62,8 +63,8 @@ namespace ArtProgram.display.shader {
                 } else {
                     if (common || ext == ".fsh")
                         sdrL = FRAGMENTS[file] = new FragmentShader(data);
-                    // if (common || ext == ".comp")
-                    //     sdrR = COMPUTES[file] = new ComputeShader(data);
+                    if (common || ext == ".comp")
+                        sdrR = COMPUTES[file] = new ComputeShader(data);
                 }
 
                 sdrL?.ParseAttribs(attribs.Split(","));
@@ -73,6 +74,10 @@ namespace ArtProgram.display.shader {
                     sdrR?.DiscoverUniform(s);
                 }
             }
+            
+            if (compute)
+                if (COMPUTES.ContainsKey(name)) return COMPUTES[name];
+
             return FRAGMENTS[name];
         }
     }

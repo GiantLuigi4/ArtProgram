@@ -12,7 +12,7 @@ function setup(worker, color)
     sdr.setUniformF("Color", 0, 0, 0, 1)
 
     worker.startWrite()
-    Gl.begin("triangles")
+    Gl.begin()
 
     return sdr
 end
