@@ -5,11 +5,35 @@ using Gtk;
 using ArtProgram;
 using OpenGL;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 
 Console.WriteLine("Initializing");
 Console.WriteLine("PID: " + Process.GetCurrentProcess().Id);
 
+bool isWindows = false;
+
+switch (Environment.OSVersion.Platform) {
+    case PlatformID.Win32S:
+    case PlatformID.Win32Windows:
+    case PlatformID.Win32NT:
+    case PlatformID.WinCE:
+        isWindows = true;
+        break;
+}
+
+Func<string, bool> SetDllDir = null;
+if (isWindows) {
+    [DllImport("kernel32.dll", SetLastError = true)]
+    static extern bool SetDllDirectory(string lpPathName);
+    SetDllDir = SetDllDirectory;
+} else {
+    static bool SetDllDirectory(string lp) { return false; }
+    SetDllDir = SetDllDirectory;
+}
+
+SetDllDir(Directory.GetCurrentDirectory() + "/bin");
 Application app = new Application("tfc.ArtProgram", GLib.ApplicationFlags.None);
+SetDllDir(Directory.GetCurrentDirectory());
 ArtApp artApp = new ArtApp();
 
 Gdk.RGBA color(double r, double g, double b) {
@@ -168,11 +192,11 @@ app.Activated += (s, e) => {
         HBox everything = new HBox();
         padH(everything);
 
-        // everything.PackStart(toolSelection, false, false, 0);
-        // everything.PackStart(vsep(), false, false, 0);
+        everything.PackStart(toolSelection, false, false, 0);
+        everything.PackStart(vsep(), false, false, 0);
 
-        // everything.PackEnd(layers, false, false, 0);
-        // everything.PackEnd(vsep(), false, false, 0);
+        everything.PackEnd(layers, false, false, 0);
+        everything.PackEnd(vsep(), false, false, 0);
 
         everything.PackStart(centralPanel, true, true, 0);
         wndo.Add(everything);

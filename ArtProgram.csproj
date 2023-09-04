@@ -1,0 +1,52 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <PublishSingleFile>true</PublishSingleFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="assets\scripts\include\shapes.lua" />
+    <None Remove="assets\scripts\merging\merge.lua" />
+    <None Remove="assets\scripts\tools\pen.lua" />
+    <None Remove="assets\assets.txt" />
+    <None Remove="assets\shaders\blit.fsh" />
+    <None Remove="assets\shaders\layer\merge.glsl" />
+    <None Remove="assets\shaders\layer\merge.properties" />
+    <None Remove="assets\shaders\ui.fsh" />
+    <None Remove="assets\shaders\ui.vsh" />
+    <None Remove="assets\shaders\util\blit.glsl" />
+    <None Remove="assets\shaders\util\blit.properties" />
+    <None Remove="assets\shaders\util\colored.fsh" />
+    <None Remove="assets\shaders\util\colored.properties" />
+    <None Remove="assets\shaders\vert.vsh" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="assets\scripts\include\shapes.lua" />
+    <EmbeddedResource Include="assets\scripts\merging\merge.lua" />
+    <EmbeddedResource Include="assets\scripts\tools\pen.lua" />
+    <EmbeddedResource Include="assets\assets.txt" />
+    <EmbeddedResource Include="assets\shaders\blit.fsh" />
+    <EmbeddedResource Include="assets\shaders\layer\merge.glsl" />
+    <EmbeddedResource Include="assets\shaders\layer\merge.properties" />
+    <EmbeddedResource Include="assets\shaders\ui.fsh" />
+    <EmbeddedResource Include="assets\shaders\ui.vsh" />
+    <EmbeddedResource Include="assets\shaders\util\blit.glsl" />
+    <EmbeddedResource Include="assets\shaders\util\blit.properties" />
+    <EmbeddedResource Include="assets\shaders\util\colored.fsh" />
+    <EmbeddedResource Include="assets\shaders\util\colored.properties" />
+    <EmbeddedResource Include="assets\shaders\vert.vsh" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="MoonSharp" Version="2.0.0" />
+    <PackageReference Include="GtkSharp" Version="3.24.24.95" />
+    <PackageReference Include="OpenGL.Net" Version="1.0.304" />
+    <PackageReference Include="StbiSharp" Version="1.2.1" />
+    <PackageReference Include="GtkSharp.Dependencies" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>
