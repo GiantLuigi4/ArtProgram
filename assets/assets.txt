@@ -1,0 +1,17 @@
+
+-- This file acts as a list for what files should be extracted from embedded resources
+
+scripts/include/shapes.lua
+scripts/merging/merge.lua
+scripts/tools/pen.lua
+
+shaders/blit.fsh
+shaders/vert.vsh
+
+shaders/util/blit.glsl
+shaders/util/blit.properties
+shaders/util/colored.fsh
+shaders/util/colored.properties
+
+shaders/layer/merge.glsl
+shaders/layer/merge.properties
