@@ -45,9 +45,10 @@ function onDrag(x, y, tex, worker, color, width, usePressure)
 
         -- draw
         local sdr = setup(worker, color)
-        for i=0,360 do
-            c = math.cos(math.rad(i))
-            s = math.sin(math.rad(i))
+        q = 360/4
+        for i=0,q do
+            c = math.cos(math.rad(i * (360 / q)))
+            s = math.sin(math.rad(i * (360 / q)))
             -- current circle
             Gl.vertex(c * pressure * radius + nx, s * pressure * radius + ny)
             -- without this, gaps get left behind
@@ -93,9 +94,10 @@ function onRelease(x, y, tex, worker, color, width, usePressure)
     local pressure = calcPressure(x, ox, y, oy, usePressure)
 
     -- draw
-    for i=0,360 do
-        c = math.cos(math.rad(i))
-        s = math.sin(math.rad(i))
+    q = 360/4
+    for i=0,q do
+        c = math.cos(math.rad(i * (360 / q)))
+        s = math.sin(math.rad(i * (360 / q)))
         -- current circle
         Gl.vertex(c * pressure * radius + x, s * pressure * radius + y)
         -- without this, gaps get left behind

@@ -1,5 +1,5 @@
 local function drawCircle(x, y, radius)
-    q = 360
+    q = 360/4
     for i=0,q do
         c = math.cos(math.rad(i * (360 / q))) * radius
         s = math.sin(math.rad(i * (360 / q))) * radius
